@@ -1,3 +1,4 @@
+
 from __future__ import print_function
 import os,io
 from flask import Flask,render_template,request, redirect,abort, url_for
@@ -23,11 +24,13 @@ def data():
     response = client.text_detection(image=image)
     result=[text.description+'\n' for text in response.text_annotations]
 
+
     for text in response.text_annotations:
         print('=' * 30)
         print(text.description)
         vertices = ['(%s,%s)' % (v.x, v.y) for v in text.bounding_poly.vertices]
         print('bounds:', ",".join(vertices))
+
     return render_template('data.html',result=result)
     
 @ocr.route('/', methods=['GET','POST'])
